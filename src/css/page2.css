@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  header {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  #search-form input {
+    padding: 10px;
+    font-size: 16px;
+  }
+  #search-form button {
+    padding: 10px;
+    font-size: 16px;
+  }
+  #gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+    list-style: none;
+  }
+  .gallery-item {
+    width: 200px;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: auto;
+  }
+  .hidden {
+    display: none;
+  }
