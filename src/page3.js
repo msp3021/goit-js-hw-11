@@ -75,3 +75,10 @@ function displayImages(images) {
     
     new SimpleLightbox('.gallery a');
 }
+    function showLoader() {
+        document.getElementById('loader-container').style.display = 'flex';
+    }
+    
+    function hideLoader() {
+        document.getElementById('loader-container').style.display = 'none';
+    }
