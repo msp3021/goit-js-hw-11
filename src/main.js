@@ -1,3 +1,5 @@
+
+
 document.getElementById('search-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const query = document.getElementById('search-input').value;
@@ -5,23 +7,28 @@ document.getElementById('search-form').addEventListener('submit', function(e) {
 });
 
 function searchImages(query) {
+    showLoader(); 
     const API_KEY = '44858240-c00958abcea8d05c4a140bab8'; 
     const URL = `https://pixabay.com/api/?key=${API_KEY}&q=${encodeURIComponent(query)}&image_type=photo&orientation=horizontal&safesearch=true`;
     
     fetch(URL)
         .then(response => response.json())
         .then(data => {
-            if (data.hits.length === 0) {
-                iziToast.error({
-                    title: 'Error',
-                    message: 'Sorry, there are no images matching your search query. Please try again!'
-                });
-            } else {
-                displayImages(data.hits);
-            }
+            setTimeout(() => { 
+                if (data.hits.length === 0) {
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Sorry, there are no images matching your search query. Please try again!'
+                    });
+                } else {
+                    displayImages(data.hits);
+                }
+                hideLoader(); 
+            }, 2000); 
         })
         .catch(error => {
             console.error('Error fetching data:', error);
+            hideLoader(); 
         });
 }
 
@@ -47,19 +54,15 @@ function displayImages(images) {
         info.classList.add('info');
         
         const likes = document.createElement('p');
-        likes.classList.add('likes');
         likes.textContent = `Likes ${image.likes}`;
         
         const views = document.createElement('p');
-        views.classList.add('views');
         views.textContent = `Views ${image.views}`;
         
         const comments = document.createElement('p');
-        comments.classList.add('comments');
         comments.textContent = `Comments ${image.comments}`;
         
         const downloads = document.createElement('p');
-        downloads.classList.add('downloads');
         downloads.textContent = `Downloads ${image.downloads}`;
         
         info.appendChild(likes);
@@ -75,10 +78,11 @@ function displayImages(images) {
     
     new SimpleLightbox('.gallery a');
 }
-    function showLoader() {
-        document.getElementById('loader-container').style.display = 'flex';
-    }
-    
-    function hideLoader() {
-        document.getElementById('loader-container').style.display = 'none';
-    }
+
+function showLoader() {
+    document.getElementById('loader-container').style.display = 'flex';
+}
+
+function hideLoader() {
+    document.getElementById('loader-container').style.display = 'none';
+}
